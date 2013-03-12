@@ -1,41 +1,52 @@
-#include <GasPump.h>
-#include <cstdio>
-GassPump::GasPump()
+#include "GasPump.h"
+#include <iostream>
+
+using namespace std;
+GasPump::GasPump()
 {
-	hightOctane = 50;
+	highOctane = 50;
 	medOctane = 50;
 	lowOctane = 50;
 	priceHigh = 2.50;
 	priceMed = 2.25;
 	priceLow = 2.00;
-};
+	totalHigh = 0.0;
+	totalMed = 0.0;
+	totalLow = 0.0;
+}
 GasPump::GasPump(int l, int m, int h)
 {	
-	hightOctane = h;
-	medOctane = setMedGal(m);
-	lowOctane = setLowGal(l);
+	setHighGal(h);
+	setMedGal(m);
+	setLowGal(l);
 	priceHigh = 2.50;
 	priceMed = 2.25;
 	priceLow = 2.00;
-};
+	totalHigh = 0.0;
+	totalMed = 0.0;
+	totalLow = 0.0;
+}
 GasPump::GasPump(double prl, double prm, double prh)
 {
-	hightOctane = 50;
+	highOctane = 50;
 	medOctane = 50;
 	lowOctane = 50;
-	priceHigh = getPriceHigh(prh);
-	priceMed = prm;
-	priceLow = prl;
+	setPriceHigh(prh);
+	setPriceMed(prm);
+	setPriceLow(prl);
+	totalHigh = 0.0;
+	totalMed = 0.0;
+	totalLow = 0.0;
 }
 void GasPump::setHighGal(int gallons)
 {
 	if(gallons > 0)
 	{
-		hightOctane = gallons;
+		highOctane = gallons;
 	}
 	
 }
-void GasPump::setHighPrice(int price)
+void GasPump::setPriceHigh(double price)
 {
 	if(price > 0.0)
 	{
@@ -49,11 +60,11 @@ void GasPump::setMedGal(int gallons)
 		medOctane = gallons;
 	}
 }
-void GasPump::setMedPrice(int price)
+void GasPump::setPriceMed(double price)
 {
 	if(price < 0.0)
 	{
-		priceMed = gallons;
+		priceMed = price;
 	}
 }
 void GasPump::setLowGal(int gallons)
@@ -63,11 +74,11 @@ void GasPump::setLowGal(int gallons)
 		lowOctane = gallons;
 	}
 }
-void GasPump::setLowPrice(int price)
+void GasPump::setPriceLow(double price)
 {
 	if(price < 0.0)
 	{
-		lowPrice = price;
+		priceLow = price;
 	}
 }
 //octante
@@ -92,7 +103,7 @@ double  GasPump::getPriceMed() const
 {
 	return priceMed;
 }
-double GasPump::getPriceLow()
+double GasPump::getPriceLow() const
 {
 	return priceLow;
 }
@@ -130,13 +141,13 @@ bool GasPump::emptyLow() const
 		return false;
 	}
 }
-double GaPump::salePriceHigh(int gal)
+double GasPump::salePriceHigh(int gal)
 {
 	double feeHigh;
-	fee = gal * priceHigh;
+	feeHigh = gal * priceHigh;
 	highOctane = getHigh() - gal;
-	totalHigh += fee;
-	return fee;
+	totalHigh += feeHigh;
+	return feeHigh;
 }
 double GasPump::salePriceMed(int gal)
 {	
@@ -146,7 +157,7 @@ double GasPump::salePriceMed(int gal)
 	totalMed += feeMed; 
 	return feeMed;
 }
-double GasPump::salsePriceLow(int gal)
+double GasPump::salePriceLow(int gal)
 {
 	double feeLow;
 	feeLow = gal * priceLow;
@@ -168,13 +179,12 @@ double GasPump::earnedLow()
 }
 void GasPump::display(ostream& out) const
 {
-	print("The amount of gas\n");
-	printf("High Octane: %d gallons\n", getHigh());
-	printf("Med Octane: %d gallons\n", getMed());
-	printf("Low Octane: %d gallons\n", getLow());
-
-	print("The amount of cash earned\n");
-	printf("High Octane: $ %f\n", getPriceHigh());
-	printf("Med Octane: $ %f\n", getPriceMed());
-	printf("Low Octane: $ %f\n", getPriceLow());
+	out <<"The amount of gas\n" 
+	    <<"High Octane: " <<  getHigh() <<"gallons\n"
+	    <<"Med Octane:" << getMed() << "gallons\n"
+	    <<"Low Octane:" << getLow() <<"gallons\n"
+	    <<"The amount of cash earned\n"
+	    <<"High Octane: $ "<< getPriceHigh()
+	    <<"\nMed Octane: $ "<< getPriceMed()
+	    <<"Low Octane: $ " <<  getPriceLow();
 }
