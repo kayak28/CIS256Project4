@@ -20,7 +20,7 @@ int main()
 	cout << "Enterthe price for low octane";
 	cin >> lowPrice;
 	
-	GasPump station; 
+	GasPump station;
 	station.setHighGal(tankSize);
 	station.setMedGal(tankSize);
 	station.setLowGal(tankSize);
@@ -31,9 +31,10 @@ int main()
 
 	do
 	{
-		cout << "which gas do you want to guy?\n"
-		     << "\n1: High Octane"<<" 2: Med Octane"<< " 3: Low octane"
-		     << "\n4: Exit this program";
+		cout << "which gas do you want to guy?"
+		     << "\n1: High Octane"<<" 2: Med Octane"<< " 3: Low octane" 
+		     << " 4: Show current states"
+		     << "\n5: Exit this program";
 		cin >> gasType;
 		switch(gasType)
 		{
@@ -49,19 +50,28 @@ int main()
 					cin >> gallons;
 					if(gallons > station.getHigh())
 					{
-						station.salePriceHigh(station.getHigh());
+						cout <<"$ " 
+						     <<  station.salePriceHigh(station.getHigh())
+						     << "\n";
+						cout << "Cost $ " << station.getPriceHigh()
+						     << " gas/gallon\n";
 					}
 					else
 					{
-						station.salePriceHigh(gallons);
+						
+						cout << "$ " << station.salePriceHigh(gallons)
+						     << "\n";
+						cout << "Cost $ " << station.getPriceHigh()
+						     << " gas/gallon\n";
 					}
-					cout << "High octane is" << station.getHigh() << "left\n";
+					cout << "High octane is " << station.getHigh()
+					     << " left\n";
 				}
 				break;
 			case 2:
 				if(station.emptyMed())
 				{
-					cout << "Med Octane is now empty\n";
+					cout << "Med octant is now empty";
 				}
 				else
 				{
@@ -69,11 +79,20 @@ int main()
 					cin >> gallons;
 					if(gallons > station.getMed())
 					{
-						station.salePriceMed(station.getMed());
+						cout << "$ " 
+						     <<station.salePriceMed(station.getMed())
+						     << "\n";
+						cout << "Cost $ " << station.getPriceMed()
+						     << " gas/gallon\n";
+						
 					}
 					else
 					{
-						station.salePriceMed(gallons);
+						cout << "$ " 
+						     <<  station.salePriceMed(gallons)
+						     << "\n";
+						cout << "Cost $ " << station.getPriceMed()
+						     << "gas/gallons\n"; 
 					}
 					cout << "Med octane is "<<station.getMed() << "left\n";
 				}
@@ -89,22 +108,32 @@ int main()
 					cin >> gallons;
 					if(gallons > station.getLow())
 					{
-						station.salePriceLow(station.getLow());
+						cout << "$ "
+						     << station.salePriceLow(station.getLow())
+						     << "\n";
+						cout << "Cost $ " << station.getPriceLow()
+						     << "gas/gallons\n";
 					}
 					else
 					{
-						station.salePriceLow(gallons);
+						cout << "$ "
+						     << station.salePriceLow(gallons)
+						     << "\n";
+						cout << "Cost $ " << station.getPriceLow()
+						     << "gas/gallons\n";
 					}
 					cout << "Low octant gas is "<< station.getLow() <<"left\n";
 				}
 				break;
-			case 4:
+			case 4: 
+				 station.display(cout);
+			case 5:
 				cout << "thank you for buying gas!\n";
 				cout << "Programmed by Kaya Ota\n";
 				break;	
 				
 		}//switch 
-	}while(gasType != 4);
+	}while(gasType != 5);
 	
 
 	

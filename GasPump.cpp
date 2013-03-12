@@ -62,7 +62,7 @@ void GasPump::setMedGal(int gallons)
 }
 void GasPump::setPriceMed(double price)
 {
-	if(price < 0.0)
+	if(price > 0.0)
 	{
 		priceMed = price;
 	}
@@ -143,6 +143,10 @@ bool GasPump::emptyLow() const
 }
 double GasPump::salePriceHigh(int gal)
 {
+	cout.setf(ios::fixed);
+	cout.setf(ios::showpoint);
+	cout.precision(2);
+
 	double feeHigh;
 	feeHigh = gal * priceHigh;
 	highOctane = getHigh() - gal;
@@ -150,7 +154,12 @@ double GasPump::salePriceHigh(int gal)
 	return feeHigh;
 }
 double GasPump::salePriceMed(int gal)
-{	
+{
+	
+	cout.setf(ios::fixed);
+	cout.setf(ios::showpoint);
+	cout.precision(2);
+	
 	double feeMed;
 	feeMed = gal * priceMed;
 	medOctane = getMed() - gal;
@@ -159,6 +168,11 @@ double GasPump::salePriceMed(int gal)
 }
 double GasPump::salePriceLow(int gal)
 {
+	
+	cout.setf(ios::fixed);
+	cout.setf(ios::showpoint);
+	cout.precision(2);
+
 	double feeLow;
 	feeLow = gal * priceLow;
 	lowOctane = getLow() - gal;
